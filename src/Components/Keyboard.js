@@ -19,7 +19,7 @@ export default class Keyboard extends Component {
     }    
     
     CreateButtons(){
-        let buttons = CharsUsed.split('').map(char => <button id={"button_"+char} onClick={this.KeyboardButtonClicked.bind(this,char)}>{char}</button>)
+        let buttons = CharsUsed.split('').map(char => <button id={"button_"+char} key={"key_"+char} onClick={this.KeyboardButtonClicked.bind(this,char)}>{char}</button>)
         return buttons
     }
     

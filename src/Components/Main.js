@@ -8,8 +8,6 @@ export default class Main extends Component {
     
     constructor(props) {
         super(props)
-    
-       // let wordArray = wordData.words[2].split('')
 
         this.state = {
            toGuessChars:[],
@@ -21,13 +19,17 @@ export default class Main extends Component {
     
     Init(){
         console.log("Main init")
-        let wordArray = wordData.words[2].split('')
+        let word =  wordData.words[2]
+        let wordArray = word.split('')
+        let uniqueCount = this.GetUniqueCount(word)
+
         this.setState({
             toGuessChars:wordArray,
             guessedChars:[],
-            wrongGuessCount:0
+            wrongGuessCount:0,
+            rightGuessCount:0,
+            uniqueCount:uniqueCount
         })
-
     }
 
     componentDidMount(){
@@ -35,30 +37,46 @@ export default class Main extends Component {
     }
     
     CharacterPressed(char){
-        console.log("Main_CharacterPressed:"+char)
+        //console.log("Main_CharacterPressed:"+char)
+        
         //add char to guessedChars
         let newGuessedArray = this.state.guessedChars
         newGuessedArray.push(char)
         this.setState({guessedChars:newGuessedArray})
 
         //check was and handle guess
-        console.log("guess was : "+this.CheckGuess(char,this.state.toGuessChars))
+        //console.log("guess was : "+this.CheckGuess(char,this.state.toGuessChars))
 
         if(this.CheckGuess(char,this.state.toGuessChars)){
             //guess was correct
-
+            this.setState({rightGuessCount:this.state.rightGuessCount+1})
+            
+            //Has player guessed all the letters? as many correct guesses as
+            //there are indivial unique chars the secrec word.
+            if(this.state.rightGuessCount+1 === this.state.uniqueCount){
+                this.WinnerWinnerChickenDinner();
+                console.log("Player won!")
+            }
         }
         else{
             //Guess was false
             let guesses = this.state.wrongGuessCount+1
             guesses > 9 ? this.GameOver() : this.setState({wrongGuessCount:guesses})
         }
+    }
 
+    GetUniqueCount(str){
+        //returns int of unique characters in string.
+        return Array.from(new Set(str)).length
     }
 
     GameOver(){
         console.log("Game Over")
         this.setState({showGameOver:''})
+    }
+
+    WinnerWinnerChickenDinner(){
+        console.log("Player has won the game")
     }
     
     RestartGame(){
