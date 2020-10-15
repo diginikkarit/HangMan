@@ -13,7 +13,8 @@ export default class Main extends Component {
            toGuessChars:[],
            guessedChars:[],
            wrongGuessCount:0,
-           showGameOver:''
+           showGameOver:'none',
+           showGameWon:'none'
         }
     }
     
@@ -77,6 +78,7 @@ export default class Main extends Component {
 
     WinnerWinnerChickenDinner(){
         console.log("Player has won the game")
+        this.setState({showGameWon:''})
     }
     
     RestartGame(){
@@ -90,18 +92,36 @@ export default class Main extends Component {
         } 
         else return true
     }
+
+    GameOverDiv(){
+        return(
+            <div id="GameOverDiv" style={{display:this.state.showGameOver}}>
+                <p>
+                    Game Over
+                    <button onClick={this.RestartGame.bind(this)}>ReStart</button>
+                </p>
+            </div>
+        )
+    }
+
+    GameWonDiv(){
+        return(
+            <div id="GameWonDiv"  style={{display:this.state.showGameWon}}>
+                <h1>Gratz! You won!</h1>
+            </div>
+        )
+    }
     
     render() {
         return (
             <div>
-                <h1>HangMan v0.1</h1>
-                <h2>Main</h2>
-                <p id="GameOver" style={{display:this.state.showGameOver}}>
-                    Game Over
-                    <button onClick={this.RestartGame.bind(this)}>ReStart</button>
-                </p>
+                <h1>HangMan v0.3</h1>
+                {this.GameOverDiv()}
+                {this.GameWonDiv()}
                 <ShowDrawing imageIndex={this.state.wrongGuessCount}/>
                 <ShowWord toGuessChars={this.state.toGuessChars} guessedChars={this.state.guessedChars}/>
+                <br/>
+                <br/>
                 <Keyboard MainCharacterPressed={this.CharacterPressed.bind(this)}/>
             </div>
         )

@@ -3,13 +3,9 @@ import React, { Component } from 'react'
 const CharsUsed = 'abcdefghijklmnopqrstuvxyzwäö'
 
 export default class Keyboard extends Component {
-    
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-             
-        }
+
+    componentDidMount(){
+        this.AddKeyListener();
     }
 
     KeyboardButtonClicked(char){
@@ -19,14 +15,26 @@ export default class Keyboard extends Component {
     }    
     
     CreateButtons(){
-        let buttons = CharsUsed.split('').map(char => <button id={"button_"+char} key={"key_"+char} onClick={this.KeyboardButtonClicked.bind(this,char)}>{char}</button>)
+        let buttons = CharsUsed.split('').map
+        (
+            char => <button id={"button_"+char} key={"key_"+char} onClick={this.KeyboardButtonClicked.bind(this,char)}>{char}</button>
+        )
         return buttons
+    }
+
+    AddKeyListener(){
+        window.addEventListener('keyup', (e) => {
+            //Check if the character is in the list...
+            if(CharsUsed.includes(e.key)){
+            this.KeyboardButtonClicked(e.key)
+            }
+        })
+
     }
     
     render() {
         return (
             <div id="Keyboard">
-                <h3>Keyboard component</h3>
                 {this.CreateButtons()}
             </div>
         )
