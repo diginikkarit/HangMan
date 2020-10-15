@@ -3,6 +3,9 @@ import Keyboard from './Keyboard'
 import ShowDrawing from './ShowDrawing'
 import ShowWord from './ShowWord'
 import wordData from '../WordData'
+import { Col, Container, Row } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class Main extends Component {
     
@@ -26,7 +29,8 @@ export default class Main extends Component {
     }
 
     CharacterPressed(char){
-        //console.log("Main_CharacterPressed:"+char)
+        //has char been used? if so, don't continue.
+        if(this.state.guessedChars.includes(char)) return;        
         
         //add char to guessedChars
         let newGuessedArray = this.state.guessedChars
@@ -99,7 +103,8 @@ export default class Main extends Component {
         return(
             <div id="GameOverDiv" style={{display:this.state.showGameOver}}>
                 <p>
-                    Game Over
+                    <h2>Game over! </h2>
+                    <p>You where hanged!</p>
                     {this.reStartButton()}
                 </p>
             </div>
@@ -116,7 +121,7 @@ export default class Main extends Component {
     }
 
     reStartButton(){
-        return(<button onClick={this.restartGame.bind(this)}>ReStart</button>)
+        return(<Button onClick={this.restartGame.bind(this)}>Restart</Button>)
     }
 
     keyboardDiv(){
@@ -125,16 +130,35 @@ export default class Main extends Component {
     
     render() {
         return (
-            <div>
-                <h1>HangMan v0.3</h1>
-                {this.gameOverDiv()}
-                {this.gameWonDiv()}
-                <ShowDrawing imageIndex={this.state.wrongGuessCount}/>
-                <ShowWord toGuessChars={this.state.toGuessChars} guessedChars={this.state.guessedChars}/>
-                <br/>
-                <br/>
-                {this.keyboardDiv()}
-            </div>
+            <Container>
+                <Row>
+                    <Col xs lg="2" style={{backgroundColor:'lightGreen'}}>
+                            <div>
+                            <h3>Guess the word!</h3>
+                            <p>Use mouse or keyboard to select characters. All right characters are revealed from the secret word.</p>
+                            <p>Wrong guesses will get you hanged.</p>
+                            {this.gameOverDiv()}
+                            {this.gameWonDiv()}
+                            </div>
+                    </Col>
+                    <Col xs lg="10" style={{backgroundColor:'lightBlue'}}>
+                        <div>
+                            <h1>HangMan v0.3</h1>
+                            <div>
+                                <ShowDrawing imageIndex={this.state.wrongGuessCount}/>
+                            </div>
+                            <div>
+                                <ShowWord toGuessChars={this.state.toGuessChars} guessedChars={this.state.guessedChars}/>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div>
+                                {this.keyboardDiv()}
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }

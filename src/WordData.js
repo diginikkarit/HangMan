@@ -1,10 +1,17 @@
 var words =[
-    "sarvikuono",
-    "rekkaauto",
-    "paloposti",
-    "suttupaperi",
-    "toimittaja",
-    "rakennustarkastaja"
+    "mutation",
+    "explosion",
+    "computer",
+    "scientist",
+    "railway",
+    "ark",
+    "cat",
+    "convinient",
+    "wheel",
+    "guitar",
+    "screen",
+    "building",
+    "forest"
 ]
 
 export default {words}

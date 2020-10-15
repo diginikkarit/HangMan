@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const CharsUsed = 'abcdefghijklmnopqrstuvxyzwäö'
 
@@ -17,11 +19,18 @@ export default class Keyboard extends Component {
     }    
     
     createButtons(){
+
         let buttons = CharsUsed.split('').map
         (
-            char => <button id={"button_"+char} key={"key_"+char} onClick={this.keyboardButtonClicked.bind(this,char)}>{char}</button>
+            char =>
+                 <Button className="btn-lg m-1" id={"button_"+char} key={"key_"+char} onClick={this.keyboardButtonClicked.bind(this,char)}>{char}</Button>
         )
-        return buttons
+
+        return (
+        <div className="m-2">
+            {buttons}
+        </div>
+        )
     }
 
     addKeyListener(){
@@ -46,6 +55,7 @@ export default class Keyboard extends Component {
     render() {
             return (
                 <div>
+                    
                     {this.keyboardDiv()}
                 </div>
             )
