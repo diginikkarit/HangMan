@@ -8,29 +8,25 @@ export default class Main extends Component {
     
     constructor(props) {
         super(props)
-
-        this.state = {
-           toGuessChars:[],
-           guessedChars:[],
-           wrongGuessCount:0,
-           showGameOver:'none',
-           showGameWon:'none'
-        }
-    }
-    
-    Init(){
-        console.log("Main init")
+        
         let word =  wordData.words[2]
         let wordArray = word.split('')
         let uniqueCount = this.GetUniqueCount(word)
-
-        this.setState({
+        
+        this.state = ({
             toGuessChars:wordArray,
             guessedChars:[],
             wrongGuessCount:0,
             rightGuessCount:0,
-            uniqueCount:uniqueCount
+            uniqueCount:uniqueCount,
+            showGameOver:'none',
+            showGameWon:'none',
+            useKeyboardComponent:true
         })
+    }
+    
+    Init(){
+        console.log("Main init")
     }
 
     componentDidMount(){
@@ -50,13 +46,16 @@ export default class Main extends Component {
 
         if(this.CheckGuess(char,this.state.toGuessChars)){
             //guess was correct
-            this.setState({rightGuessCount:this.state.rightGuessCount+1})
+            let newRightGuessCount = this.state.rightGuessCount+1;
             
             //Has player guessed all the letters? as many correct guesses as
             //there are indivial unique chars the secrec word.
-            if(this.state.rightGuessCount+1 === this.state.uniqueCount){
+            if(newRightGuessCount === this.state.uniqueCount){
                 this.WinnerWinnerChickenDinner();
                 console.log("Player won!")
+            }else{
+                //not done yet? setState and keep guessing...
+                this.setState({rightGuessCount:newRightGuessCount})
             }
         }
         else{
@@ -73,12 +72,18 @@ export default class Main extends Component {
 
     GameOver(){
         console.log("Game Over")
-        this.setState({showGameOver:''})
+        this.setState({
+            showGameOver:'',
+            useKeyboardComponent:false
+        })
     }
 
     WinnerWinnerChickenDinner(){
         console.log("Player has won the game")
-        this.setState({showGameWon:''})
+        this.setState({
+            showGameWon:'',
+            useKeyboardComponent:false
+        })
     }
     
     RestartGame(){
@@ -98,7 +103,7 @@ export default class Main extends Component {
             <div id="GameOverDiv" style={{display:this.state.showGameOver}}>
                 <p>
                     Game Over
-                    <button onClick={this.RestartGame.bind(this)}>ReStart</button>
+                    {this.ReStartButton()}
                 </p>
             </div>
         )
@@ -106,10 +111,19 @@ export default class Main extends Component {
 
     GameWonDiv(){
         return(
-            <div id="GameWonDiv"  style={{display:this.state.showGameWon}}>
+            <div id="GameWonDiv" style={{display:this.state.showGameWon}}>
                 <h1>Gratz! You won!</h1>
+                {this.ReStartButton()}
             </div>
         )
+    }
+
+    ReStartButton(){
+        return(<button onClick={this.RestartGame.bind(this)}>ReStart</button>)
+    }
+
+    RenderKeyBoard(){
+            return(<Keyboard MainCharacterPressed={this.CharacterPressed.bind(this)} inUse={this.state.useKeyboardComponent}/>)
     }
     
     render() {
@@ -122,7 +136,7 @@ export default class Main extends Component {
                 <ShowWord toGuessChars={this.state.toGuessChars} guessedChars={this.state.guessedChars}/>
                 <br/>
                 <br/>
-                <Keyboard MainCharacterPressed={this.CharacterPressed.bind(this)}/>
+                {this.RenderKeyBoard()}
             </div>
         )
     }

@@ -9,9 +9,11 @@ export default class Keyboard extends Component {
     }
 
     KeyboardButtonClicked(char){
-        console.log("Keyboard_Button pressed:"+char)
-        document.getElementById("button_"+char).style.display = "none"
-        this.props.MainCharacterPressed(char)
+        if(this.props.inUse === true) {
+            console.log("Keyboard_Button pressed:"+char)
+            document.getElementById("button_"+char).style.display = "none"
+            this.props.MainCharacterPressed(char)
+        }
     }    
     
     CreateButtons(){
@@ -29,14 +31,23 @@ export default class Keyboard extends Component {
             this.KeyboardButtonClicked(e.key)
             }
         })
+    }
 
+    KeyboardDiv(){
+        if(this.props.inUse === true){
+            return (
+                <div id="Keyboard">
+                    {this.CreateButtons()}
+                </div>
+            )
+        }
     }
     
     render() {
-        return (
-            <div id="Keyboard">
-                {this.CreateButtons()}
-            </div>
-        )
+            return (
+                <div>
+                    {this.KeyboardDiv()}
+                </div>
+            )
     }
 }
