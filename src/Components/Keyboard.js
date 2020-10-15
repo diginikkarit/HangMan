@@ -5,10 +5,10 @@ const CharsUsed = 'abcdefghijklmnopqrstuvxyzwäö'
 export default class Keyboard extends Component {
 
     componentDidMount(){
-        this.AddKeyListener();
+        this.addKeyListener();
     }
 
-    KeyboardButtonClicked(char){
+    keyboardButtonClicked(char){
         if(this.props.inUse === true) {
             console.log("Keyboard_Button pressed:"+char)
             document.getElementById("button_"+char).style.display = "none"
@@ -16,28 +16,28 @@ export default class Keyboard extends Component {
         }
     }    
     
-    CreateButtons(){
+    createButtons(){
         let buttons = CharsUsed.split('').map
         (
-            char => <button id={"button_"+char} key={"key_"+char} onClick={this.KeyboardButtonClicked.bind(this,char)}>{char}</button>
+            char => <button id={"button_"+char} key={"key_"+char} onClick={this.keyboardButtonClicked.bind(this,char)}>{char}</button>
         )
         return buttons
     }
 
-    AddKeyListener(){
+    addKeyListener(){
         window.addEventListener('keyup', (e) => {
             //Check if the character is in the list...
             if(CharsUsed.includes(e.key)){
-            this.KeyboardButtonClicked(e.key)
+            this.keyboardButtonClicked(e.key)
             }
         })
     }
 
-    KeyboardDiv(){
+    keyboardDiv(){
         if(this.props.inUse === true){
             return (
                 <div id="Keyboard">
-                    {this.CreateButtons()}
+                    {this.createButtons()}
                 </div>
             )
         }
@@ -46,7 +46,7 @@ export default class Keyboard extends Component {
     render() {
             return (
                 <div>
-                    {this.KeyboardDiv()}
+                    {this.keyboardDiv()}
                 </div>
             )
     }
