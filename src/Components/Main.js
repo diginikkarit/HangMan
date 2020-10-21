@@ -143,7 +143,7 @@ export default class Main extends Component {
                     <Col xs lg="10">
                         <div>
                         <div className="Header">
-                            <h1>HangMan v0.5</h1>
+                            <h1>HangMan v{process.env.REACT_APP_VERSION}</h1>
                             <small>Done by HM and Diginikkarit</small>
                         </div>
                             <div>
