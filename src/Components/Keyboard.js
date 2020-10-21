@@ -45,7 +45,7 @@ export default class Keyboard extends Component {
     keyboardDiv(){
         if(this.props.inUse === true){
             return (
-                <div id="Keyboard">
+                <div id="Keyboard" className="Keyboard" >
                     {this.createButtons()}
                 </div>
             )
@@ -55,7 +55,6 @@ export default class Keyboard extends Component {
     render() {
             return (
                 <div>
-                    
                     {this.keyboardDiv()}
                 </div>
             )

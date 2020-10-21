@@ -16,7 +16,7 @@ export default class ShowDrawing extends Component {
   
     render() {
         return (
-            <div id="ShowDrawing">
+            <div id="ShowDrawing" className="ShowDrawing">
             <img src={images[this.props.imageIndex]} height="400" width="400" alt="hangmanpic"/>      
             </div>
         )

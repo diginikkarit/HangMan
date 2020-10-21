@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import '../ShowWord.css'
 export default class ShowWord extends Component {
 
     
@@ -25,7 +25,7 @@ export default class ShowWord extends Component {
     }
 
     stringToElements(str){
-        let elements = str.split('').map(element => <char>{element} </char> )
+    let elements = str.split('').map(element =><slot> {element}</slot>)
         return elements
 
     }
@@ -33,7 +33,7 @@ export default class ShowWord extends Component {
     render() {
         return (
             <div id="ShowWord">
-            <div style={{fontSize:60}}>
+            <div className='word'>
                {this.stringToElements(this.getString())}
             </div> 
             {/* <br/>toGuessChars : {this.props.toGuessChars}        

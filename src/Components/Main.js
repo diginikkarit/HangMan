@@ -102,11 +102,10 @@ export default class Main extends Component {
     gameOverDiv(){
         return(
             <div id="GameOverDiv" style={{display:this.state.showGameOver}}>
-                <p>
                     <h2>Game over! </h2>
                     <p>You where hanged!</p>
                     {this.reStartButton()}
-                </p>
+                
             </div>
         )
     }
@@ -132,8 +131,8 @@ export default class Main extends Component {
         return (
             <Container>
                 <Row>
-                    <Col xs lg="2" style={{backgroundColor:'lightGreen'}}>
-                            <div>
+                    <Col xs lg="2">
+                            <div className="Info">
                             <h3>Guess the word!</h3>
                             <p>Use mouse or keyboard to select characters. All right characters are revealed from the secret word.</p>
                             <p>Wrong guesses will get you hanged.</p>
@@ -141,17 +140,18 @@ export default class Main extends Component {
                             {this.gameWonDiv()}
                             </div>
                     </Col>
-                    <Col xs lg="10" style={{backgroundColor:'lightBlue'}}>
+                    <Col xs lg="10">
                         <div>
-                            <h1>HangMan v0.3</h1>
+                        <div className="Header">
+                            <h1>HangMan v0.5</h1>
+                            <small>Done by HM and Diginikkarit</small>
+                        </div>
                             <div>
-                                <ShowDrawing imageIndex={this.state.wrongGuessCount}/>
+                                <ShowDrawing imageIndex={this.state.wrongGuessCount} />
                             </div>
-                            <div>
+                            <div >
                                 <ShowWord toGuessChars={this.state.toGuessChars} guessedChars={this.state.guessedChars}/>
                             </div>
-                            <br/>
-                            <br/>
                             <div>
                                 {this.keyboardDiv()}
                             </div>

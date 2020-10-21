@@ -1,0 +1,43 @@
+/*
+Get started with google fonts...
+*/
+@import url('https://fonts.googleapis.com/css2?family=Chilanka&family=Rock+Salt&display=swap');
+
+.Main {
+  text-align: center;
+  font-family: 'Chilanka';
+  margin: 3%;
+}
+
+.Header {
+    align-items: center;
+}
+
+.Header h1 {
+    color:Black;
+    font-size: 80px;
+    text-shadow: 2px 2px grey;
+}
+
+
+.Info{
+    padding: 2px;
+    margin: 1%;
+    text-align: center;
+}
+
+.ShowDrawing{
+    margin: 1%;
+    padding: 10px;
+}
+
+.ShowDrawing img{
+   border: black 1px solid;
+   box-shadow: 4px 4px grey;  
+}
+
+.Keyboard{
+    margin: 10px;
+    padding: 2px;
+    color: magenta;
+}
